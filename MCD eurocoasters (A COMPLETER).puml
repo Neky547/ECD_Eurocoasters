@@ -1,0 +1,85 @@
+@startuml
+
+' Masquer les cercles dans les classes
+hide circle 
+
+' ---------------------------
+'   Définition des entités 
+' ---------------------------
+
+entity "rollercoaster"  as rollercoaster <<entity>> #FFB84D {    
+    nom : String
+    structure : Enumération <<bois, acier>>
+    type : Enumération <<sit down, inverted, wing, ...>>
+    date d'ouverture : Date
+    hauteur : Décimal
+}
+
+entity "constructeur" as constructeur <<entity>> #7FDB67 {    
+    nom : A_COMPLETER
+    adresse : A_COMPLETER
+    url du site Web : A_COMPLETER
+    url Instagram : A_COMPLETER
+    url LinkedIn : A_COMPLETER
+    date de creation : A_COMPLETER
+}
+
+entity "parc" as parc <<entity>> #4DA8FF {    
+    nom : A_COMPLETER
+    date d'ouverture : A_COMPLETER
+    superficie <<en ha>> : Entier
+}
+
+entity "ville" as ville <<entity>> #FF99FF {   
+    nom : A_COMPLETER
+}
+
+entity "pays" as pays <<entity>> #FF6666 {   
+    nom : A_COMPLETER
+}
+
+entity "élément" as element <<entity>> #FF6666 {    
+    nom : A_COMPLETER
+}
+
+entity "fréquentation" as frequentation <<entity>> #D0D0FF {    
+    année d'exploitation : Date
+    nombre de visiteurs : A_COMPLETER
+}
+
+' -------------------------------
+'   Associations (relations)
+' -------------------------------
+
+' Un constructeur PEUT NE PAS AVOIR comme PLUSIEURS de rollercoaster, mais avoir d'autres types d'attractions
+' Un rollercoaster est obligatoirement construit par UN constructeurs.
+rollercoaster  " 0..* "--" 1 " constructeur :  "est construit par" >
+
+' Un rollercoaster est localisé dans UN parc et un parc peut avoir AUCUN ou PLUSIEURS rollercoasters
+' A COMPLETER LA RELATION
+
+' Un constructeur est localisé dans UNE ville, une ville peut avoir AUCUN ou PLUSIEURS constructeurs
+' A COMPLETER LA RELATION
+
+' Un parc d'attractions est  localisé dans UNE ville, une ville peut avoir AUCUN ou PLUSIEURS parcs d'attractions
+' A COMPLETER LA RELATION
+
+' Un parc n'a pas encore de fréquentation avant la fin de sa 1ère année d'exploitation
+' Ensuite un par aura PLUSIEURS fréquentations (une par année d'exploitation.)
+' Une fréquentation est en relation avec UN parc pour UNE année.
+' A COMPLETER LA RELATION
+
+' Une ville à UN unique pays, un pays à UNE ou plusieurs villes
+' A COMPLETER LA RELATION
+
+
+' Un rollercoaster est composé de PLUSIEURS ELEMENTS et un élément peut se trouver dans PLUSIEURS rollercosters
+' Un élément peut également avoir un NOMBRE D'OCCURRENCES supérieur à 1 dans un rollercoaster
+rollercoaster " 1..* " -- " 1..* " element : "composé de" >
+(rollercoaster, element ) . composition
+class "composition" as composition #A4F0FF {
+    nombre : Integer
+}
+
+
+@enduml
