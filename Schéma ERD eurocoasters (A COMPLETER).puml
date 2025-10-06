@@ -15,74 +15,74 @@ skinparam class {
 ' ---------------------------------
 
 entity rollercoasters #FFB84D {
-    <<PK>> rollercoaster_id : INTEGER
+    <<PK>> rollercoaster_id : Int
     --
     nom : VARCHAR(50)
     structure : ENUM <<bois, acier>>
     type : ENUM <<sit down, inverted, wing, ...>>
-    date_ouverture : YEAR
-    hauteur : DECIMAL(4,1)
+    date_ouverture : Date
+    hauteur : Double(4,1)
     --
-    <<FK>> fk_constructeur_id : INTEGER
-    <<FK>> fk_parc_id : INTEGER
+    <<FK>> fk_constructeur_id : Int
+    <<FK>> fk_parc_id : Int
 }
 
 entity constructeurs #7FDB67 {
-    <<PK>> constructeur_id : A_COMPLETER
+    <<PK>> constructeur_id : Int
     --
-    nom : A_COMPLETER
-    adresse : A_COMPLETER
-    url_site_web : A_COMPLETER
-    url_facebook : A_COMPLETER
-    url_instagram : A_COMPLETER
-    url_linked_in : A_COMPLETER
-    date_creation : YEAR
+    nom : String
+    adresse : String
+    url_site_web : String
+    url_facebook : String
+    url_instagram : String
+    url_linked_in : String
+    date_creation : Date
     --
-    <<FK>> A_COMPLETER : A_COMPLETER
+    <<FK>> ville_id : Int
 }
 
 entity parcs #4DA8FF {
-    <<PK>> parc_id : A_COMPLETER
+    <<PK>> parc_id : Int
     --
-    nom : A_COMPLETER    
-    date_ouverture : INTEGER
-    superficie : INTEGER
+    nom : String    
+    date_ouverture : Date
+    superficie : Int
     --
-    <<FK>> A_COMPLETER : A_COMPLETER
+    <<FK>> ville_id : Int
 }
 
 entity villes #FF99FF {
-    <<PK>> ville_id : A_COMPLETER
+    <<PK>> ville_id : Int
     --
-    nom : A_COMPLETER
+    nom : String
     --
-    <<FK>> A_COMPLETER : A_COMPLETER
+    <<FK>> pays_id : Int
 }
 
 entity pays #FF6666 {
-    <<PK>> pays_id : A_COMPLETER
+    <<PK>> pays_id : Int
     --
-    nom : A_COMPLETER
+    nom : String
 }
 
 entity compositions #A4F0FF {
-    <<PK>> <<FK>> fk_rollercoaster_id : INTEGER
-    <<PK>> <<FK>> fk_element_id : INTEGER
+    <<PK>> <<FK>> fk_rollercoaster_id : Int
+    <<PK>> <<FK>> fk_element_id : Int
     --
-    nombre : INTEGER
+    nombre : Int
 }
 
 entity elements #FF6666 {
-    <<PK>> element_id : INTEGER
+    <<PK>> element_id : Int
     --
     nom : VARCHAR(50)
 }
 
 entity frequentations #D0D0FF {
-    <<PK>> annee : YEAR
-    <<PK>> <<FK>> fk_parc_id : INTEGER
+    <<PK>> annee : Date
+    <<PK>> <<FK>> fk_parc_id : Int
     --
-    nombre_visiteurs : INTEGER
+    nombre_visiteurs : Int
 }
 
 
@@ -92,7 +92,10 @@ entity frequentations #D0D0FF {
 
 rollercoasters }o--|| constructeurs : "FK"
 
-' COMPLETER ICI LES 4 RELATIONS MANQUANTES
+rollercoasters }o--|| parcs : "FK"
+constructeurs }o--|| villes : "FK"
+parcs }o--|| villes : "FK"
+villes }o--|| pays : "FK"
 
 compositions }o--|| rollercoasters : "FK"
 compositions }o--|| elements : "FK"

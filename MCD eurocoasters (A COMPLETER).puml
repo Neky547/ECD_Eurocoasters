@@ -16,35 +16,35 @@ entity "rollercoaster"  as rollercoaster <<entity>> #FFB84D {
 }
 
 entity "constructeur" as constructeur <<entity>> #7FDB67 {    
-    nom : A_COMPLETER
-    adresse : A_COMPLETER
-    url du site Web : A_COMPLETER
-    url Instagram : A_COMPLETER
-    url LinkedIn : A_COMPLETER
-    date de creation : A_COMPLETER
+    nom : String
+    adresse : String
+    url du site Web : String
+    url Instagram : String
+    url LinkedIn : String
+    date de creation : Date
 }
 
 entity "parc" as parc <<entity>> #4DA8FF {    
-    nom : A_COMPLETER
-    date d'ouverture : A_COMPLETER
-    superficie <<en ha>> : Entier
+    nom : String
+    date d'ouverture : Date
+    superficie <<en ha>> : Int
 }
 
 entity "ville" as ville <<entity>> #FF99FF {   
-    nom : A_COMPLETER
+    nom : String
 }
 
 entity "pays" as pays <<entity>> #FF6666 {   
-    nom : A_COMPLETER
+    nom : String
 }
 
 entity "élément" as element <<entity>> #FF6666 {    
-    nom : A_COMPLETER
+    nom : String
 }
 
 entity "fréquentation" as frequentation <<entity>> #D0D0FF {    
     année d'exploitation : Date
-    nombre de visiteurs : A_COMPLETER
+    nombre de visiteurs : String
 }
 
 ' -------------------------------
