@@ -90,15 +90,15 @@ entity frequentations #D0D0FF {
 ' Définition des relations entre les entités :
 ' --------------------------------------------
 
-rollercoasters }o--|| constructeurs : "FK"
+rollercoasters }o--o{ constructeurs : "FK"
 
 rollercoasters }o--|| parcs : "FK"
 constructeurs }o--|| villes : "FK"
 parcs }o--|| villes : "FK"
 villes }o--|| pays : "FK"
 
-compositions }o--|| rollercoasters : "FK"
-compositions }o--|| elements : "FK"
+compositions }o--o{ rollercoasters : "FK"
+compositions }o--o{ elements : "FK"
 frequentations }o--|| parcs : "FK"
 
 
