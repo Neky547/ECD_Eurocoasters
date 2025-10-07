@@ -17,7 +17,7 @@ ON UPDATE CASCADE
 CREATE TABLE parcs (
 parc_id INT AUTO_INCREMENT PRIMARY KEY,
 nom VARCHAR(50),
-date_ouverture DATE,
+date_ouverture YEAR,
 superficie INT,
 fk_ville_id INT DEFAULT NULL REFERENCES villes(ville_id)
 ON DELETE SET NULL
@@ -26,7 +26,7 @@ ON UPDATE CASCADE
 
 -- Frequentations
 CREATE TABLE frequentations (
-annee DATE,
+annee YEAR,
 nombre_visiteurs INT,
 fk_parc_id INT REFERENCES parcs(parc_id)
 ON DELETE CASCADE
@@ -43,7 +43,7 @@ url_site_web VARCHAR(100),
 url_facebook VARCHAR(100),
 url_instagram VARCHAR(100),
 url_linked_in VARCHAR(100),
-date_creation DATE,
+date_creation YEAR,
 fk_ville_id INT DEFAULT NULL REFERENCES villes(ville_id)
 ON DELETE SET NULL
 ON UPDATE CASCADE
@@ -59,7 +59,7 @@ nom VARCHAR(50)
 CREATE TABLE rollercoasters (
 rollercoaster_id INT AUTO_INCREMENT PRIMARY KEY,
 nom VARCHAR(50),
-date_ouverture DATE,
+date_ouverture YEAR,
 hauteur DOUBLE(4,1),
 structure ENUM('acier', 'bois') NOT NULL,
 type ENUM('sit down', 'stand up', 'inverted', 'suspended', 'wing', 'bobsled', 'flying') DEFAULT NULL,
@@ -80,16 +80,18 @@ ON DELETE RESTRICT
 ON UPDATE CASCADE,
 PRIMARY KEY (fk_rollercoaster_id, fk_element_id)
 );
+ALTER TABLE Compositions
+ADD number INT;
 
 -- VALORISATION DES TABLES
--- Pays FAITS
+-- Pays
 INSERT INTO pays (pays_id, nom) VALUES
 (1, 'Allemagne'), (2, 'Autriche'), (3, 'Belgique'), (4, 'Danemark'), (5, 'Espagne'), (6, 'Finlande'),
 (7, 'France'), (8, 'Hongrie'), (9, 'Irlande'), (10, 'Italie'), (11, 'Norvège'), (12, 'Pays de Galles'),
 (13, 'Pays-Bas'), (14, 'Pologne'), (15, 'Royaume-Uni'), (16, 'Suède'), (17, 'Turquie'), (18, 'Portugal'),
 (19, 'Suisse'), (20, 'États Unis'), (21, 'Japon'), (22, 'Liechtenstein');
 
--- Villes FAITS
+-- Villes 
 INSERT INTO villes (ville_id, nom, fk_pays_id) VALUES
 (1, 'Bad Wörishofen', 1), (2, 'Bottrop', 1), (3, 'Brühl', 1), (4, 'Friesoythe-Thüle', 1), (5, 'Geiselwind', 1), (6, 'Hassloch', 1), (7, 'Leipzig', 1), (8, 'Lengenfeld', 1),
 (9, 'Loifling', 1), (10, 'Rust', 1), (11, 'Salzhemmendorf', 1), (12, 'Sierksdorf', 1), (13, 'Wustermark', 1), (14, 'St. Margarethen', 2), (15, 'Vienne', 2), (16, 'Adinkerke-De Panne', 3),
@@ -111,7 +113,7 @@ INSERT INTO villes (ville_id, nom, fk_pays_id) VALUES
 (138, 'Sankt Jakob in Haus', 2);
 
 
--- Parcs FAITS
+-- Parcs 
 INSERT INTO parcs (parc_id, nom, fk_ville_id, date_ouverture, superficie) VALUES
 (1, 'Skyline Park', 1, 1999, 20), (2, 'Movie Park Germany', 2, 1967, 45), (3, 'Phantasialand', 3, 1967, 28), (4, 'Tier- und Freizeitpark Thüle', 4, 1965, 25),
 (5, 'Freizeit-Land Geiselwind', 5, 1969, 45), (6, 'Holiday Park', 6, 1971, 45), (7, 'Belantis', 7, 2003, 27), (8, 'Freizeitpark Plohn', 8, 1996, 30),
@@ -143,7 +145,7 @@ INSERT INTO parcs (parc_id, nom, fk_ville_id, date_ouverture, superficie) VALUES
 (111, 'Slagharen Themepark & Resort', 110, 1963, 50), (112, 'Terra Mítica', 111, 2000, 100), (113, 'Tibidabo', 112, 1901, 7), (114, 'Vialand', 113, 2013, 60), (115, 'Walibi Rhône-Alpes', 114, 1979, 35),
 (116, 'Freizeitpark Familienland', 138, 2000, NULL);
 
--- Frequentations
+-- Frequentations 
 INSERT INTO frequentations (annee, fk_parc_id, nombre_visiteurs) VALUES
 ('2023', 1, 250000), ('2023', 2, 1000000), ('2023', 3, 2000000), ('2023', 4, 300000), ('2023', 5, 600000), ('2023', 6, 1500000), ('2023', 7, 500000), ('2023', 8, 350000),
 ('2023', 9, 200000), ('2023', 10, 6000000), ('2023', 11, 200000), ('2023', 12, 2000000), ('2023', 13, 300000), ('2023', 14, 1000000), ('2023', 15, 2000000), ('2023', 16, 2000000),
@@ -160,7 +162,7 @@ INSERT INTO frequentations (annee, fk_parc_id, nombre_visiteurs) VALUES
 ('2023', 100, NULL), ('2023', 101, NULL), ('2023', 102, NULL), ('2023', 103, NULL), ('2023', 104, NULL), ('2023', 105, NULL), ('2023', 106, NULL), ('2023', 107, NULL),
 ('2023', 108, NULL), ('2023', 109, NULL), ('2023', 110, NULL), ('2023', 111, NULL), ('2023', 112, NULL), ('2023', 113, NULL), ('2023', 114, NULL), ('2023', 115, NULL);
 
--- Constructeurs
+-- Constructeurs 
 INSERT INTO constructeurs (constructeur_id, nom, fk_ville_id, adresse, url_site_web, url_facebook, url_linked_in, url_instagram, date_creation) VALUES
 (1, 'Bolliger & Mabillard', 137, 'Chemin des Dailles 31', 'https://www.bolliger-mabillard.com/', '', NULL, NULL, '1988'),
 (2, 'Custom Coasters International', 121, ' 8461 Cincinnati-Columbus Road', NULL, ' ', NULL, NULL, NULL),
@@ -192,7 +194,7 @@ manufacturing', '1926'),
 (25, 'KumbaK The Amusement Engineers', 135, 'Havenweg 12', 'http://www.kumbak.nl/', 'https://www.facebook.com/pages/', NULL, NULL, '2002'),
 (26, 'Ride Engineers Switzerland', 136, 'Ride Engineers Switzerland', 'http://ride-engineers.com/', 'https://www.facebook.com/rideengineersswitzerland/', NULL, 'https://www.linkedin.com/company/ride-engineers-switzerland', '2016');
 
--- Elements
+-- Elements 
 INSERT INTO elements (element_id, nom) VALUES
 (1, 'Banana Roll'), (2, 'Barrel Roll'), (3, 'Barrel Roll Downdrop'), (4, 'Batwing'), (5, 'Bent Cuban Eight'),
 (6, 'Block Brake'), (7, 'Booster Wheel Lift Hill'), (8, 'Bowtie'), (9, 'Butterfly'), (10, 'Cable Car'),
@@ -223,7 +225,7 @@ INSERT INTO elements (element_id, nom) VALUES
 (131, 'Water Channel'), (132, 'Weight Drop Launch'), (133, 'Windcatcher Tower'), (134, 'Wing Over'), (135, 'Wraparound Corkscrew'),
 (136, 'Zero-G Roll'), (137, 'Zero-G Roll (variant)'), (138, 'Zero-G Stall'), (139, 'Zero-G Winder'), (140, 'Vertical Loop');
 
--- Roller Coasters
+-- Roller Coasters 
 INSERT INTO rollercoasters (rollercoaster_id, nom, structure, type, date_ouverture, hauteur, fk_constructeur_id, fk_parc_id) VALUES
 (1, 'Abismo', 'acier', 'sit down', '2006', 46.2, 8, 27), (2, 'Abyssus', 'acier', 'sit down', '2021', 38.5, 10, 63), (3, 'Alpina Blitz', 'acier', 'sit down', '2014', 33.0, 7, 34), (4, 'Altair', 'acier', 'sit down', '2014', 33.0, 6, 82), (5, 'Anaconda', 'bois', 'sit down', '1989', 36.0, 14, 36), (6, 'Anubis: The Ride', 'acier', 'sit down', '2009', 34.0, 3, 16),
 (7, 'Apocalypse', 'acier', 'sit down', '2012', 22.9, 10, 104), (8, 'Atlantica SuperSplash', 'acier', 'sit down', '2005', 30.0, 7, 10), (9, 'Avengers Assemble: Flight Force', 'acier', 'sit down', '2002', 24.4, 10, 37), (10, 'Balagos', 'acier', 'sit down', '1905', 25.0, 10, 58), (11, 'Balder', 'bois', 'sit down', '2003', 36.0, 6, 76), (12, 'Bandit', 'bois', 'sit down', '1999', 27.8, 15, 2),
@@ -262,7 +264,7 @@ INSERT INTO rollercoasters (rollercoaster_id, nom, structure, type, date_ouvertu
 (205, 'Zadra', 'acier', 'sit down', '2019', 62.8, 9, 63), (206, 'Ziegelblitz', 'acier', 'sit down', '2024', 21.0, 3, 98);
 
 -- Compositions
-INSERT INTO compositions (fk_rollercoaster_id, fk_element_id, nombre) VALUES
+INSERT INTO Compositions (fk_rollercoaster_id, fk_element_id, number) VALUES
 (3, 14, 1), (6, 6, 1), (6, 24, 1), (6, 44, 1), (6, 51, 1), (6, 71, 1), (13, 14, 1), (13, 21, 1), (13, 45, 1), (13, 51, 1),
 (13, 121, 1), (13, 136, 1), (14, 18, 2), (14, 67, 2), (14, 69, 1), (14, 85, 1), (14, 107, 1), (14, 116, 1), (14, 129, 1), (14, 138, 1),
 (19, 14, 1), (19, 18, 2), (19, 58, 1), (19, 136, 1), (19, 140, 1), (20, 6, 1), (20, 21, 1), (20, 52, 1), (20, 69, 1), (20, 123, 1),
@@ -276,4 +278,65 @@ INSERT INTO compositions (fk_rollercoaster_id, fk_element_id, nombre) VALUES
 (195, 122, 1), (195, 126, 1), (195, 138, 1), (205, 14, 1), (205, 137, 2), (205, 138, 1);
 
 
+-- REQUETES DE TESTS
+-- Villes et pays
+SELECT
+    villes.nom AS VILLE,
+    pays.nom AS PAYS
+FROM
+    villes
+    INNER JOIN pays ON villes.fk_pays_id = pays.pays_id;
 
+-- Parcs avec leur pays et ville
+SELECT
+    parcs.nom AS PARC,
+    villes.nom AS VILLE,
+    pays.nom AS PAYS
+FROM
+    parcs
+    INNER JOIN villes ON parcs.fk_ville_id = villes.ville_id
+    INNER JOIN pays ON villes.fk_pays_id = pays.pays_id;
+
+-- Parcs avec leur fréquentation pour 2023
+SELECT
+    parcs.nom AS PARC,
+    frequentations.nombre_visiteurs AS VISITEURS_2023
+FROM
+    parcs
+    INNER JOIN frequentations ON parcs.parc_id = frequentations.fk_parc_id
+WHERE frequentations.annee = 2023;
+
+
+-- Constructeurs avec ville et pays avec LEFT JOIN
+SELECT
+    constructeurs.nom AS CONSTRUCTEUR,
+    villes.nom AS VILLE,
+    pays.nom AS PAYS
+FROM
+    constructeurs
+    LEFT JOIN villes ON constructeurs.fk_ville_id = villes.ville_id
+    LEFT JOIN pays ON villes.fk_pays_id = pays.pays_id;
+
+
+-- Rollercoasters avec constructeurs et parcs
+SELECT
+    rollercoasters.nom AS ROLLERCOASTER,
+    constructeurs.nom AS CONSTRUCTEUR,
+    parcs.nom AS PARC
+FROM
+    rollercoasters
+    INNER JOIN constructeurs ON rollercoasters.fk_constructeur_id = constructeurs.constructeur_id
+    INNER JOIN parcs ON rollercoasters.fk_parc_id = parcs.parc_id;
+
+
+
+-- Rollercoasters avec leurs éléments
+SELECT
+    rollercoasters.nom AS ROLLERCOASTER,
+    elements.nom AS ELEMENT,
+    Compositions.number AS NOMBRE 
+FROM
+    rollercoasters
+    INNER JOIN Compositions ON rollercoasters.rollercoaster_id = Compositions.fk_rollercoaster_id
+    INNER JOIN elements ON Compositions.fk_element_id = elements.element_id
+ORDER BY rollercoasters.rollercoaster_id;

@@ -20,7 +20,7 @@ entity rollercoasters #FFB84D {
     nom : VARCHAR(50)
     structure : ENUM <<bois, acier>>
     type : ENUM <<sit down, inverted, wing, ...>>
-    date_ouverture : Date
+    date_ouverture : Year
     hauteur : Double(4,1)
     --
     <<FK>> fk_constructeur_id : Int
@@ -36,7 +36,7 @@ entity constructeurs #7FDB67 {
     url_facebook : String
     url_instagram : String
     url_linked_in : String
-    date_creation : Date
+    date_creation : Year
     --
     <<FK>> ville_id : Int
 }
@@ -45,7 +45,7 @@ entity parcs #4DA8FF {
     <<PK>> parc_id : Int
     --
     nom : String    
-    date_ouverture : Date
+    date_ouverture : Year
     superficie : Int
     --
     <<FK>> ville_id : Int
@@ -79,7 +79,7 @@ entity elements #FF6666 {
 }
 
 entity frequentations #D0D0FF {
-    <<PK>> annee : Date
+    <<PK>> annee : Year
     <<PK>> <<FK>> fk_parc_id : Int
     --
     nombre_visiteurs : Int

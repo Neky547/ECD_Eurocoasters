@@ -11,22 +11,22 @@ entity "rollercoaster"  as rollercoaster <<entity>> #FFB84D {
     nom : String
     structure : Enumération <<bois, acier>>
     type : Enumération <<sit down, inverted, wing, ...>>
-    date d'ouverture : Date
+    date d'ouverture : Year
     hauteur : Décimal
 }
 
-entity "constructeur" as constructeur <<entity>> #7FDB67 {    
+entity "constructeur" as constructeur <<entity>> #7fdb67ff {    
     nom : String
     adresse : String
     url du site Web : String
     url Instagram : String
     url LinkedIn : String
-    date de creation : Date
+    date de creation : Year
 }
 
 entity "parc" as parc <<entity>> #4DA8FF {    
     nom : String
-    date d'ouverture : Date
+    date d'ouverture : Year
     superficie <<en ha>> : Int
 }
 
@@ -43,7 +43,7 @@ entity "élément" as element <<entity>> #FF6666 {
 }
 
 entity "fréquentation" as frequentation <<entity>> #D0D0FF {    
-    année d'exploitation : Date
+    année d'exploitation : Year
     nombre de visiteurs : String
 }
 
